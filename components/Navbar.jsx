@@ -143,11 +143,11 @@ export default function Navbar() {
 
           {/* Mobile Hamburger - High Z-index to sit over blob if needed */}
           <button
-            className="relative z-[110] flex md:hidden flex-col gap-1.5 px-2.5 rounded-lg py-4 bg-[#FCB8FA] border border-black/10"
+            className={`relative z-[110] flex md:hidden flex-col gap-1.5 px-2.5 rounded-lg py-4 ${!menuOpen ? 'bg-[#FCB8FA]' : 'bg-[#FFFFFF]'} border border-black/10`}
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {menuOpen ? (
-              <X size={24} className="text-[#1A1A1A]" />
+              <X size={18} className="text-[#1A1A1A]" />
             ) : (
               <>
                 <span className="block w-6 h-0.5 bg-[#1A1A1A]"></span>
@@ -180,13 +180,13 @@ export default function Navbar() {
                   ease: [0.76, 0, 0.24, 1],
                 },
               }}
-              className="absolute inset-0 bg-[#FCB8FA] m-2.5 rounded-[2.5rem] origin-top shadow-2xl"
+              className="absolute inset-0 bg-[#FCB8FA] m-2.5 rounded-lg origin-top shadow-2xl"
             />
 
             {/* Menu Layout */}
             <div className="relative h-full flex flex-col items-center justify-center px-6">
               {/* Nav Links */}
-              <ul className="flex flex-col items-center gap-6">
+              <ul className="flex flex-col items-center gap-2 mt-12">
                 {navLinks.map((link, index) => (
                   <motion.li
                     key={link.label}
@@ -207,9 +207,11 @@ export default function Navbar() {
                     <a
                       href={link.href}
                       onClick={() => setMenuOpen(false)}
-                      className="text-5xl font-black text-[#1A1A1A] tracking-tighter hover:italic hover:opacity-70 transition-all"
+                      className="text-xl font-black text-[#1A1A1A] tracking-tighter pt-5 hover:italic hover:opacity-70 transition-all"
                     >
-                      {link.label}
+                      <div className="py-3 px-5 bg-[#FFFFFF] font-bold text-2xl rounded-xl">
+                        {link.label}
+                      </div>
                     </a>
                   </motion.li>
                 ))}
@@ -221,12 +223,12 @@ export default function Navbar() {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ opacity: 0, transition: { duration: 0.2 } }}
                 transition={{ delay: 0.8 }}
-                className="mt-16"
+                className="pt-32"
               >
                 <a
                   href="#"
                   onClick={() => setMenuOpen(false)}
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-white text-[#1A1A1A] text-xl font-bold rounded-full shadow-xl"
+                  className="inline-flex items-center gap-3 px-4 py-3 bg-[#161616] text-[#FFFFFF] text-xl font-bold rounded-2xl"
                 >
                   Get Results
                   <div className="bg-[#FCE7F3] p-1.5 rounded-lg">
@@ -235,7 +237,7 @@ export default function Navbar() {
                       strokeWidth={3}
                       className="text-[#FF4D00]"
                       fill="#FF4D00"
-                      fillOpacity={0.25}
+                      fillOpacity={0.45}
                     />
                   </div>
                 </a>
