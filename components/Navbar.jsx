@@ -74,18 +74,21 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
+      // LAW: Never hide the navbar if the mobile menu is open
+      if (menuOpen) return;
+
       const currentScrollY = window.scrollY;
 
-      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-        // Scrolling Down - Hide Navbar
+      // Scrolling Down
+      if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
         gsap.to(navRef.current, {
-          y: -100,
+          y: -120, // Slide up further to hide pink button shadow on mobile
           opacity: 0,
           duration: 0.4,
           ease: 'power2.inOut',
         });
       } else {
-        // Scrolling Up - Show Navbar
+        // Scrolling Up
         gsap.to(navRef.current, {
           y: 0,
           opacity: 1,
@@ -98,7 +101,7 @@ export default function Navbar() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [menuOpen]); // Re-bind scroll listener when menuOpen state changes
 
   useEffect(() => {
     if (menuOpen) {
@@ -119,9 +122,10 @@ export default function Navbar() {
     <>
       <nav
         ref={navRef}
-        className="fixed w-full z-[100] pt-4 px-6 transition-colors duration-300"
+        // Anchoring top and left ensures GSAP doesn't cause jumps on mobile browsers
+        className="fixed top-0 left-0 w-full z-[100] pt-4 px-6 transition-colors duration-300 pointer-events-none"
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between bg-transparent">
+        <div className="max-w-7xl mx-auto flex items-center justify-between bg-transparent pointer-events-auto">
           <a
             href="#"
             className="relative z-[110] flex items-center leading-none hover:opacity-80 transition-opacity"
@@ -129,6 +133,7 @@ export default function Navbar() {
             <LogoSVG className="h-10 md:h-12.5 w-auto" />
           </a>
 
+          {/* Desktop Links */}
           <ul className="hidden md:flex items-center bg-white/80 backdrop-blur-md rounded-full py-1.5 shadow-sm border border-black/5">
             {navLinks.map((link) => (
               <li key={link.label}>
@@ -151,6 +156,7 @@ export default function Navbar() {
             ))}
           </ul>
 
+          {/* Desktop Button */}
           <div className="hidden md:block">
             <a
               href="#"
@@ -172,8 +178,11 @@ export default function Navbar() {
             </a>
           </div>
 
+          {/* Mobile Menu Button - Wrapped in ref container so it hides too */}
           <button
-            className={`relative z-[110] flex md:hidden flex-col gap-1.5 px-2.5 rounded-lg py-4 ${!menuOpen ? 'bg-[#FCB8FA]' : 'bg-[#FFFFFF]'} border border-black/10`}
+            className={`relative z-[110] flex md:hidden flex-col gap-1.5 px-2.5 rounded-lg py-4 ${
+              !menuOpen ? 'bg-[#FCB8FA]' : 'bg-[#FFFFFF]'
+            } border border-black/10 shadow-lg`}
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {menuOpen ? (

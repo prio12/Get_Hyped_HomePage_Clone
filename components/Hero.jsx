@@ -92,7 +92,7 @@ export default function Hero() {
   return (
     <section
       ref={container}
-      className="relative min-h-[120vh] bg-[#F8F4EE] px-4 md:px-6 pt-32 md:pt-48 pb-32 overflow-hidden select-none"
+      className="relative  bg-[#F8F4EE] px-4 md:px-6 pt-32 md:pt-48 md:pb-20 pb-8 overflow-hidden select-none"
     >
       <div className="mx-auto max-w-[1300px]">
         {/* Headline - Reduced margin-bottom on mobile */}
@@ -116,7 +116,7 @@ export default function Hero() {
         </div>
 
         {/* Bento Grid Container - Reduced height on mobile to pull cards up */}
-        <div className="flex flex-row items-center justify-center md:justify-start gap-2 md:gap-0 h-[380px] md:h-auto">
+        <div className="flex flex-row items-center justify-center md:justify-start gap-2 md:gap-0  md:h-auto">
           {cards.map((card, index) => (
             <div
               key={card.id}
