@@ -1,8 +1,9 @@
 'use client';
 
 import { Flame, X } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import gsap from 'gsap';
 
 const LogoSVG = ({ className }) => (
   <svg
@@ -68,6 +69,36 @@ const LogoSVG = ({ className }) => (
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navRef = useRef(null);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        // Scrolling Down - Hide Navbar
+        gsap.to(navRef.current, {
+          y: -100,
+          opacity: 0,
+          duration: 0.4,
+          ease: 'power2.inOut',
+        });
+      } else {
+        // Scrolling Up - Show Navbar
+        gsap.to(navRef.current, {
+          y: 0,
+          opacity: 1,
+          duration: 0.4,
+          ease: 'power2.out',
+        });
+      }
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (menuOpen) {
@@ -86,9 +117,11 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-[100] pt-4 px-6">
+      <nav
+        ref={navRef}
+        className="fixed w-full z-[100] pt-4 px-6 transition-colors duration-300"
+      >
         <div className="max-w-7xl mx-auto flex items-center justify-between bg-transparent">
-          {/* Main Logo - High Z-index keeps it visible over the blob */}
           <a
             href="#"
             className="relative z-[110] flex items-center leading-none hover:opacity-80 transition-opacity"
@@ -96,8 +129,7 @@ export default function Navbar() {
             <LogoSVG className="h-10 md:h-12.5 w-auto" />
           </a>
 
-          {/* Desktop Nav Links */}
-          <ul className="hidden md:flex items-center bg-white rounded-full py-1.5 shadow-sm border border-black/5">
+          <ul className="hidden md:flex items-center bg-white/80 backdrop-blur-md rounded-full py-1.5 shadow-sm border border-black/5">
             {navLinks.map((link) => (
               <li key={link.label}>
                 <a
@@ -119,7 +151,6 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* Desktop CTA - Fixed and brought back */}
           <div className="hidden md:block">
             <a
               href="#"
@@ -141,7 +172,6 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Mobile Hamburger - High Z-index to sit over blob if needed */}
           <button
             className={`relative z-[110] flex md:hidden flex-col gap-1.5 px-2.5 rounded-lg py-4 ${!menuOpen ? 'bg-[#FCB8FA]' : 'bg-[#FFFFFF]'} border border-black/10`}
             onClick={() => setMenuOpen(!menuOpen)}
@@ -158,11 +188,9 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* ── MOBILE MENU ── */}
       <AnimatePresence mode="wait">
         {menuOpen && (
           <div className="fixed inset-0 z-[60]">
-            {/* Background Blob - Heavy Spring Fall */}
             <motion.div
               initial={{ y: '-100%' }}
               animate={{ y: 0 }}
@@ -183,9 +211,7 @@ export default function Navbar() {
               className="absolute inset-0 bg-[#FCB8FA] m-2.5 rounded-lg origin-top shadow-2xl"
             />
 
-            {/* Menu Layout */}
             <div className="relative h-full flex flex-col items-center justify-center px-6">
-              {/* Nav Links */}
               <ul className="flex flex-col items-center gap-2 mt-12">
                 {navLinks.map((link, index) => (
                   <motion.li
@@ -217,7 +243,6 @@ export default function Navbar() {
                 ))}
               </ul>
 
-              {/* Mobile CTA */}
               <motion.div
                 initial={{ y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}

@@ -92,7 +92,7 @@ export default function Hero() {
   return (
     <section
       ref={container}
-      className="min-h-screen bg-[#F8F4EE] px-4 md:px-6 pt-20 md:pt-32 pb-32 overflow-hidden select-none"
+      className="relative min-h-[120vh] bg-[#F8F4EE] px-4 md:px-6 pt-32 md:pt-48 pb-32 overflow-hidden select-none"
     >
       <div className="mx-auto max-w-[1300px]">
         {/* Headline - Reduced margin-bottom on mobile */}
