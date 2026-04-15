@@ -64,24 +64,35 @@ export default function About() {
       {/* Main Section Grid */}
       <section className="grid grid-cols-1 md:grid-cols-9 px-4 mt-16 gap-10 md:gap-5">
         {/* 1st Child: Image (Full width on mobile) */}
-        <div className="col-span-1 md:col-span-3 hidden md:block lg:block">
-          <img
-            src="https://cdn.prod.website-files.com/6848603da8e6ac95794b7498/6894757aa6dd3f84f6e463a2_Anniek%20Bril.webp"
-            alt="about image"
-            className="w-full md:w-1/2 rounded-2xl h-auto object-cover"
-          />
+        <div className="col-span-1 md:col-span-3">
+          {/* MOBILE ONLY: Video appears on small screens, hidden on md/lg */}
+          <div className="block md:hidden">
+            {/* The container provides the 3D 'lens' */}
+            <div style={{ perspective: '1200px' }}>
+              <video
+                src="https://gethyped.b-cdn.net/New%20Reach/new-reach-loop.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full rounded-2xl h-auto object-cover aspect-[4/5] shadow-2xl"
+                style={{
+                  transform: 'rotateX(15deg) rotateY(-10deg) rotateZ(2deg)',
+                  transformStyle: 'preserve-3d',
+                }}
+              />
+            </div>
+          </div>
+
+          {/* TABLET/DESKTOP ONLY: Image appears on md/lg, hidden on mobile */}
+          <div className="hidden md:block">
+            <img
+              src="https://cdn.prod.website-files.com/6848603da8e6ac95794b7498/6894757aa6dd3f84f6e463a2_Anniek%20Bril.webp"
+              alt="about image"
+              className="w-full md:w-3/4 lg:w-1/2 rounded-2xl h-auto object-cover"
+            />
+          </div>
         </div>
-        {/* <div className="col-span-1 md:col-span-3 md:hidden lg:hidden">
-          <video
-            src={card.video}
-            poster={card.thumbnail}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="h-full w-full object-cover"
-          />
-        </div> */}
 
         {/* 2nd Child: Text & Button (Full width on mobile) */}
         <div className="col-span-1 md:col-span-3 text-xl font-bold flex flex-col justify-start md:pt-10">
