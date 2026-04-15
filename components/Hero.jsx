@@ -8,7 +8,7 @@ const cards = [
   {
     id: 1,
     type: 'metric',
-    bg: '#0080FF',
+    bg: '#0d8dff',
     rotate: 8,
     metric: '10M+',
     title: 'Organische views',
@@ -26,7 +26,7 @@ const cards = [
   {
     id: 3,
     type: 'metric',
-    bg: '#00D17B',
+    bg: '#33c791',
     rotate: -12,
     metric: '30+',
     title: 'Merken geholpen',
@@ -141,18 +141,15 @@ export default function Hero() {
                   className="h-full w-full p-5 md:p-8 flex flex-col justify-between"
                   style={{ backgroundColor: card.bg }}
                 >
-                  <div className="text-[2.2rem] md:text-[4.5rem] font-bold tracking-tighter leading-none text-white">
+                  <div className="text-[2.2rem] md:text-[4rem] font-bold tracking-tighter leading-none text-[#161616]">
                     {card.metric}
                   </div>
                   <div className="space-y-2 md:space-y-3">
-                    <div
-                      className="h-[1px] w-full"
-                      style={{ backgroundColor: card.dividerColor }}
-                    />
-                    <div className="text-base md:text-xl font-bold text-white leading-tight">
+                    <div className="text-base md:text-xl font-bold text-[#161616] leading-tight">
                       {card.title}
                     </div>
-                    <div className="text-[10px] md:text-sm text-white/80">
+                    <div className="h-[1px] w-full bg-[#161616]" />
+                    <div className="text-[10px] md:text-sm font-semibold text-[#161616]">
                       {card.desc}
                     </div>
                   </div>
