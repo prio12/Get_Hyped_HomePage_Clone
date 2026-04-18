@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
 import Expertises from '@/components/Expertises';
+import CasesSection from '@/components/CasesSection';
 
 export default function Home() {
   return (
@@ -10,6 +11,9 @@ export default function Home() {
       <Hero />
       <About />
       <Expertises />
+      <div className="relative z-20 bg-[#F8F4EE]">
+        <CasesSection />
+      </div>
     </main>
   );
 }

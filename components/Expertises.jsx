@@ -75,40 +75,43 @@ export default function ExpertiseSection() {
 
   useEffect(() => {
     const cards = gsap.utils.toArray('.expertise-card');
+
     cards.forEach((card, index) => {
-      if (index !== cards.length - 1) {
-        gsap.to(card, {
-          scale: 0.9,
-          opacity: 0.8,
-          scrollTrigger: {
-            trigger: card,
-            start: 'top top',
-            endTrigger: containerRef.current,
-            end: 'bottom bottom',
-            scrub: true,
-            pin: true,
-            pinSpacing: false,
-          },
-        });
-      } else {
-        ScrollTrigger.create({
+      const isLast = index === cards.length - 1;
+
+      gsap.to(card, {
+        // Subtle scale down effect for cards underneath
+        scale: isLast ? 1 : 0.95,
+        opacity: isLast ? 1 : 0.9,
+        scrollTrigger: {
           trigger: card,
           start: 'top top',
+          // The magic is here:
+          // Cards 1-3 stack (no spacing). Card 4 creates space for the next section.
+          end: 'bottom top',
+          scrub: true,
           pin: true,
-          pinSpacing: false,
-        });
-      }
+          pinSpacing: isLast,
+          invalidateOnRefresh: true,
+        },
+      });
     });
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
   }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full">
-      {expertiseData.map((item) => (
+    <div ref={containerRef} className="relative w-full overflow-hidden">
+      {expertiseData.map((item, index) => (
         <section
           key={item.id}
-          className="expertise-card sticky top-0 h-screen w-full flex items-center justify-center p-6 md:p-12 overflow-hidden"
-          style={{ backgroundColor: item.bgColor }}
+          className="expertise-card w-full h-screen flex items-center justify-center p-6 md:p-12"
+          style={{
+            backgroundColor: item.bgColor,
+            zIndex: index + 1, // Ensures correct stacking order
+          }}
         >
           <div className="relative w-full max-w-7xl h-full flex flex-col justify-between py-10 md:py-16">
             {/* TOP SECTION */}
@@ -136,7 +139,7 @@ export default function ExpertiseSection() {
               {/* VIDEO CONTAINER */}
               <div className="w-full md:w-[45%] flex justify-start md:justify-end order-2 md:order-2">
                 <div
-                  className="relative overflow-hidden rounded-3xl shadow-xl border-7 transition-all duration-500 my-8 md:my-0 -rotate-[2deg] md:rotate-[3deg]"
+                  className="relative overflow-hidden rounded-3xl shadow-xl border-[7px] transition-all duration-500 my-8 md:my-0 -rotate-[2deg] md:rotate-[3deg]"
                   style={{
                     borderColor: item.btnBgColor,
                     width: 'clamp(50%, 50%, 280px)',
