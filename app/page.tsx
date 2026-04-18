@@ -3,6 +3,7 @@ import Hero from '@/components/Hero';
 import About from '@/components/About';
 import Expertises from '@/components/Expertises';
 import CasesSection from '@/components/CasesSection';
+import Brands from '@/components/Brands';
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <div className="relative z-20 bg-[#F8F4EE]">
         <CasesSection />
       </div>
+      <Brands />
     </main>
   );
 }
