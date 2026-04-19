@@ -1,5 +1,6 @@
 'use client';
 
+import { Flame } from 'lucide-react';
 import { FaLinkedin, FaInstagram, FaYoutube, FaTiktok } from 'react-icons/fa';
 
 // The LogoSVG you provided
@@ -74,33 +75,125 @@ export default function SlopedFooter() {
   ];
 
   return (
-    <footer
-      // 1. Hidden on small screens, flex on medium+
-      className="hidden md:flex w-full bg-[#eedeed] overflow-hidden min-h-[400px] relative px-5 flex-col"
-      style={{ clipPath: 'polygon(0 220px, 100% 0, 100% 100%, 0 100%)' }}
-    >
-      <div className="grid grid-cols-12 gap-6 items-center">
-        {/* Logo Section */}
-        <div className="col-span-6 pt-62">
-          <LogoSVG className="h-24 w-auto" />
-        </div>
+    <footer className="px-2 md:px-5 lg:px-5">
+      <div
+        // 1. Hidden on small screens, flex on medium+
+        className="hidden md:flex w-full bg-[#eedeed] overflow-hidden min-h-[400px] relative px-5 flex-col"
+        style={{ clipPath: 'polygon(0 220px, 100% 0, 100% 100%, 0 100%)' }}
+      >
+        <div className="grid grid-cols-12 gap-6 items-center">
+          {/* Logo Section */}
+          <div className="col-span-6 pt-62">
+            <LogoSVG className="h-24 w-auto" />
+          </div>
 
-        {/* Navigation & Socials */}
-        <div className="col-span-3 flex flex-col justify-center items-center gap-6 pt-24">
-          <ul className="hidden lg:flex items-center bg-white/80 backdrop-blur-md rounded-full py-1.5 shadow-sm border border-black/5">
+          {/* Navigation & Socials */}
+          <div className="col-span-3 flex flex-col justify-center items-center gap-6 pt-24">
+            <ul className="hidden lg:flex items-center bg-white/80 backdrop-blur-md rounded-full py-1.5 shadow-sm border border-black/5">
+              {navLinks.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="group relative flex items-center justify-center overflow-hidden rounded-full px-[1.2rem] py-[0.6rem] mx-1 text-xs font-bold tracking-[-0.02em] text-black"
+                  >
+                    <span className="absolute inset-0 translate-y-full bg-[#FF0000] transition-transform duration-300 ease-out group-hover:translate-y-0"></span>
+                    <span className="absolute inset-0 translate-y-full bg-black transition-transform duration-500 delay-40 group-hover:translate-y-0"></span>
+                    <span className="relative z-10 block h-[1.1em] overflow-hidden leading-none">
+                      <span className="block transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-y-full group-hover:text-white">
+                        {link.label}
+                      </span>
+                      <span className="absolute top-0 left-0 block w-full translate-y-[150%] text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-y-[20%]">
+                        {link.label}
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <ul className="flex gap-3 items-center text-xs font-bold uppercase tracking-tighter">
+              <p>Follow us</p>
+              <div className="bg-white h-8 w-8 rounded-full flex items-center justify-center">
+                <FaLinkedin size={16} />
+              </div>
+              <div className="bg-white h-8 w-8 rounded-full flex items-center justify-center">
+                <FaTiktok size={16} />
+              </div>
+              <div className="bg-white h-8 w-8 rounded-full flex items-center justify-center">
+                <FaInstagram size={16} />
+              </div>
+              <div className="bg-white h-8 w-8 rounded-full flex items-center justify-center">
+                <FaYoutube size={16} />
+              </div>
+            </ul>
+          </div>
+
+          {/* 2. Contact Section with left spacing (pl-12) */}
+          <div className="col-span-3 flex flex-col justify-center gap-6 pt-24 pl-12 pr-6">
+            <div>
+              <h3 className="font-bold text-sm">Contact</h3>
+              <p className="text-xs">info@gethyped.nl</p>
+              <p className="text-xs">+31 6 1533 7496</p>
+            </div>
+            <div>
+              <h3 className="font-bold text-sm">Adres</h3>
+              <p className="text-xs">Beltrumsestraat 6, </p>
+              <p className="text-xs">7141 AL Groenlo Privacyvoorwaarden</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Section - Right-to-Left Slope */}
+      <div
+        className="bg-[#eedeed] block md:hidden lg:hidden w-full rounded-lg"
+        style={{ clipPath: 'polygon(0 60px, 100% 0, 100% 100%, 0 100%)' }}
+      >
+        <div className="flex flex-col items-center w-full mt-12">
+          {/* 1st: LogoSVG (Full Width) */}
+          <div className="w-full mb-8">
+            <LogoSVG className="w-full h-auto" />
+          </div>
+
+          {/* 2nd: Get Results Button */}
+          <a
+            href="#"
+            className="group relative inline-flex items-center gap-2 px-6 py-3 text-white mb-6 font-bold transition-transform duration-450 ease-bounce hover:rotate-[-8deg]"
+          >
+            <span className="absolute inset-0 left-[0.15em] z-[1] h-full bg-[#fa5424] rounded-[0.5em] w-[calc(100%-0.3em)] transition-all duration-450 ease-bounce group-hover:w-[calc(100%-0.8em)]" />
+            <span className="relative z-10 flex items-center gap-2">
+              Get Hyped! Neem Contact Op
+              <div className="bg-white px-1.5 py-1.5 rounded-md shadow-sm">
+                <Flame
+                  size={18}
+                  strokeWidth={3}
+                  className="text-[#FF4D00]"
+                  fill="#FF4D00"
+                  fillOpacity={0.25}
+                />
+              </div>
+            </span>
+          </a>
+
+          {/* 3rd: Navigation Links (Pill Style) */}
+          <ul className="flex flex-wrap justify-center items-center gap-3 mb-8">
             {navLinks.map((link) => (
-              <li key={link.label}>
+              <li
+                key={link.label}
+                className="bg-white rounded-lg shadow-sm border border-black/5"
+              >
                 <a
                   href={link.href}
-                  className="group relative flex items-center justify-center overflow-hidden rounded-full px-[1.2rem] py-[0.6rem] mx-1 text-xs font-bold tracking-[-0.02em] text-black"
+                  className="group relative flex items-center justify-center overflow-hidden rounded-lg px-4 py-2 text-xs font-bold text-black"
                 >
                   <span className="absolute inset-0 translate-y-full bg-[#FF0000] transition-transform duration-300 ease-out group-hover:translate-y-0"></span>
                   <span className="absolute inset-0 translate-y-full bg-black transition-transform duration-500 delay-40 group-hover:translate-y-0"></span>
+
                   <span className="relative z-10 block h-[1.1em] overflow-hidden leading-none">
-                    <span className="block transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-y-full group-hover:text-white">
+                    <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full group-hover:text-white">
                       {link.label}
                     </span>
-                    <span className="absolute top-0 left-0 block w-full translate-y-[150%] text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-y-[20%]">
+                    <span className="absolute top-0 left-0 block w-full translate-y-[150%] text-white transition-transform duration-500 ease-out group-hover:translate-y-[20%]">
                       {link.label}
                     </span>
                   </span>
@@ -109,34 +202,37 @@ export default function SlopedFooter() {
             ))}
           </ul>
 
-          <ul className="flex gap-3 items-center text-xs font-bold uppercase tracking-tighter">
-            <p>Follow us</p>
-            <div className="bg-white h-8 w-8 rounded-full flex items-center justify-center">
-              <FaLinkedin size={16} />
-            </div>
-            <div className="bg-white h-8 w-8 rounded-full flex items-center justify-center">
-              <FaTiktok size={16} />
-            </div>
-            <div className="bg-white h-8 w-8 rounded-full flex items-center justify-center">
-              <FaInstagram size={16} />
-            </div>
-            <div className="bg-white h-8 w-8 rounded-full flex items-center justify-center">
-              <FaYoutube size={16} />
-            </div>
-          </ul>
-        </div>
-
-        {/* 2. Contact Section with left spacing (pl-12) */}
-        <div className="col-span-3 flex flex-col justify-center gap-6 pt-24 pl-12 pr-6">
-          <div>
-            <h3 className="font-bold text-sm">Contact</h3>
-            <p className="text-xs">info@gethyped.nl</p>
-            <p className="text-xs">+31 6 1533 7496</p>
+          {/* 4th: Socials */}
+          <div className="flex gap-4 mb-10">
+            {[FaLinkedin, FaTiktok, FaInstagram, FaYoutube].map((Icon, i) => (
+              <div
+                key={i}
+                className="bg-white h-10 w-10 rounded-full shadow-sm flex items-center justify-center text-black active:scale-90 transition-transform"
+              >
+                <Icon size={18} />
+              </div>
+            ))}
           </div>
-          <div>
-            <h3 className="font-bold text-sm">Adres</h3>
-            <p className="text-xs">Beltrumsestraat 6, </p>
-            <p className="text-xs">7141 AL Groenlo Privacyvoorwaarden</p>
+
+          {/* 5th: Footer Info */}
+          <div className="text-center space-y-4">
+            <div className="space-y-1">
+              <p className="font-bold text-base text-[#1A1A1A]">
+                info@gethyped.nl
+              </p>
+              <p className="font-bold text-base text-[#1A1A1A]">
+                +31 6 1533 7496
+              </p>
+            </div>
+
+            <div className="space-y-1 text-slate-600">
+              <p className="font-medium text-sm">Beltrumsestraat 6,</p>
+              <p className="font-medium text-sm">7141 AL Groenlo</p>
+            </div>
+
+            <p className="text-[10px] font-bold text-slate-400 mt-10 tracking-[0.2em] uppercase">
+              © Design by Maksudur Rahman Prio
+            </p>
           </div>
         </div>
       </div>
