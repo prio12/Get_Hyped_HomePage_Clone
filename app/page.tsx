@@ -5,6 +5,7 @@ import Expertises from '@/components/Expertises';
 import CasesSection from '@/components/CasesSection';
 import Brands from '@/components/Brands';
 import CtaSection from '@/components/CtaSection';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       </div>
       <Brands />
       <CtaSection />
+      <Footer />
     </main>
   );
 }
