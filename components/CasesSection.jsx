@@ -68,13 +68,11 @@ const ProjectCard = ({ project }) => {
       ${project.mobileRotate} md:rotate-0 hover:md:-rotate-3`}
       style={{ borderColor: project.color }}
     >
-      {/* THUMBNAIL */}
       <div
         className="absolute inset-0 bg-cover bg-center transition-opacity duration-700 md:opacity-100 opacity-0 group-hover:md:opacity-0"
         style={{ backgroundImage: `url(${project.thumbnail})` }}
       />
 
-      {/* VIDEO OVERLAY */}
       <video
         ref={videoRef}
         src={project.video}
@@ -85,7 +83,7 @@ const ProjectCard = ({ project }) => {
         className="absolute inset-0 w-full h-full object-cover md:opacity-0 opacity-100 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
       />
 
-      {/* THE SLOPE OVERLAY */}
+      {/* Slope Overlay */}
       <div
         className="absolute bottom-4 left-4 right-4 p-6 pt-12 text-white flex flex-col justify-end rounded-4xl overflow-hidden"
         style={{
@@ -94,7 +92,6 @@ const ProjectCard = ({ project }) => {
           boxShadow: '0 10px 30px -10px rgba(0,0,0,0.3)',
         }}
       >
-        {/* Added pr-14 to ensure text doesn't overlap with the arrow */}
         <h3 className="text-xl md:text-2xl mb-3 font-bold leading-tight tracking-tighter pr-14">
           {project.title}
         </h3>
@@ -105,7 +102,7 @@ const ProjectCard = ({ project }) => {
           </span>
         </div>
 
-        {/* DOUBLE ARROW ANIMATION CONTAINER */}
+        {/* Double Arrow animation */}
         <div className="absolute top-5 right-5 bg-white text-black w-10 h-10 rounded-full shadow-lg flex items-center justify-center overflow-hidden">
           <div className="relative h-full w-full flex flex-col items-center transition-transform duration-500 ease-in-out md:group-hover:-translate-y-full">
             <div className="flex h-full w-full items-center justify-center shrink-0">

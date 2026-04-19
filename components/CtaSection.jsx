@@ -17,7 +17,6 @@ export default function CTASection() {
   const lastPos = useRef({ x: 0, y: 0 });
 
   const handleMouseMove = (e) => {
-    // FREQUENCY: Increased to 150 to make it less crowded
     const distance = Math.hypot(
       e.clientX - lastPos.current.x,
       e.clientY - lastPos.current.y
@@ -35,7 +34,6 @@ export default function CTASection() {
     const img = document.createElement('img');
     img.src = imagePool[imageIndex];
 
-    // SIZE: Increased to w-40 for md and lg screens
     img.className =
       'absolute pointer-events-none w-32 md:w-44 z-0 opacity-0 select-none';
 
@@ -50,7 +48,6 @@ export default function CTASection() {
     containerRef.current.appendChild(img);
     setImageIndex((prev) => (prev + 1) % imagePool.length);
 
-    // SMOOTHNESS: Using expo.out and longer durations
     const tl = gsap.timeline();
     tl.to(img, {
       opacity: 1,
@@ -78,7 +75,7 @@ export default function CTASection() {
       onMouseMove={(e) => {
         if (window.innerWidth >= 768) handleMouseMove(e);
       }}
-      /* HIDDEN ON MOBILE: Added 'hidden md:flex' */
+      // Hidden on mobile
       className="hidden md:flex relative w-full h-[90vh] bg-[#FAF4EC] flex-col items-center justify-center overflow-hidden"
     >
       <div
@@ -91,9 +88,8 @@ export default function CTASection() {
           Let&apos;s Get Hyped!
         </h2>
 
-        {/* BUTTONS CONTAINER */}
+        {/* Buttons Container */}
         <div className="flex items-center gap-6 pointer-events-auto">
-          {/* BUTTON 1 - Text Left, Icon Right */}
           <a
             href="#"
             className="flex items-center gap-4 p-2  border  text-xl  font-bold rounded-lg transition-all "
@@ -104,7 +100,6 @@ export default function CTASection() {
             </div>
           </a>
 
-          {/* BUTTON 2 - Matching Size */}
           <a
             href="#"
             className="flex items-center gap-4 p-2  bg-[#FA5424] text-[#FFFFFF] text-xl  font-bold rounded-lg transition-all "

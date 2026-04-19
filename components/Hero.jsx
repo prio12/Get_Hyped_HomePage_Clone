@@ -60,7 +60,7 @@ export default function Hero() {
             scale: 1,
             zIndex: i,
             duration: 0.7,
-            ease: 'expo.out', // Very smooth deceleration for re-joining
+            ease: 'expo.out',
           });
         } else if (hoveredIndex === i) {
           gsap.to(card, {
@@ -92,10 +92,9 @@ export default function Hero() {
   return (
     <section
       ref={container}
-      className="relative  bg-[#F8F4EE] px-4 md:px-6 mt-2 md:mt-0 lg:mt-0 pt-32 md:pt-48 md:pb-20 pb-8 overflow-hidden select-none"
+      className="relative  bg-[#F8F4EE] px-4 md:px-6  pt-32 md:pt-48 md:pb-20 pb-8 overflow-hidden select-none"
     >
       <div className="mx-auto max-w-325">
-        {/* Headline - Reduced margin-bottom on mobile */}
         <div className="mb-10 md:mb-16">
           <h1 className="text-[clamp(2.5rem,7vw,5.33rem)] font-bold tracking-tighter leading-[0.95] text-[#1A1A1A] mb-4">
             <span className="hidden md:block lg:block">Get Hyped. Get</span>
@@ -115,7 +114,7 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* Bento Grid Container - Reduced height on mobile to pull cards up */}
+        {/* Bento Grid Container */}
         <div className="flex flex-row items-center justify-center md:justify-start gap-2 md:gap-0  md:h-auto">
           {cards.map((card, index) => (
             <div

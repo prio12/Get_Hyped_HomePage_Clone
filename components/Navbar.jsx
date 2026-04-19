@@ -13,7 +13,6 @@ const LogoSVG = ({ className }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
   >
-    {/* FIXED "G" PATH DATA */}
     <path
       d="M10.7552 38.1967V30.4719L6.41764 31.0106V52.7862L10.7552 52.6633V46.2774L8.09139 46.4255V40.2381L14.7799 39.6836V59.0933H10.7584V57.0676L10.0586 57.7386C9.15239 58.6082 7.93337 59.0933 6.66597 59.0933H5.9726C4.14728 59.0933 2.67026 57.6473 2.67026 55.8673V28.8021C2.67026 26.6851 4.25047 24.8799 6.39184 24.5522L10.968 23.8528C12.9707 23.5473 14.7831 25.0594 14.7831 27.0379V37.8281L10.7616 38.1935L10.7552 38.1967Z"
       fill="#000000"
@@ -101,7 +100,7 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [menuOpen]);
 
-  // FIX: FALLING & BOUNCING MOBILE MENU LOGIC
+  //Falling & Bouncing mobile menu
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = 'hidden';
@@ -179,7 +178,8 @@ export default function Navbar() {
                 >
                   <span className="absolute inset-0 translate-y-full bg-[#FF0000] transition-transform duration-300 ease-out group-hover:translate-y-0"></span>
                   <span className="absolute inset-0 translate-y-full bg-black transition-transform duration-500 delay-40 group-hover:translate-y-0"></span>
-                  <span className="relative z-10 block h-[1.1em] overflow-hidden">
+                  <span className="relative z-10 block h-[1.6em] overflow-hidden leading-[1.6]">
+                    {' '}
                     <span className="block transition-transform duration-300 group-hover:-translate-y-full group-hover:text-white">
                       {link.label}
                     </span>
@@ -231,8 +231,8 @@ export default function Navbar() {
         </div>
       </nav>
 
-      <div ref={menuRef} className="fixed inset-0 z-60 invisible">
-        {/* The Falling Background */}
+      <div ref={menuRef} className="fixed inset-0 z-60 invisible bg-white">
+        {/* The falling background */}
         <div
           ref={menuBgRef}
           className="absolute inset-0 bg-[#FCB8FA] m-2.5 rounded-lg origin-top shadow-2xl"

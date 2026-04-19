@@ -98,7 +98,7 @@ export default function SlopedFooter() {
         },
       });
 
-      // Simple stagger for social icons
+      // stagger for social icons
       gsap.from(socialIconsRef.current, {
         scale: 0.5,
         opacity: 0,

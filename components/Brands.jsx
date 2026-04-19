@@ -55,11 +55,10 @@ export default function Brands() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Animate from 0 to -50% for Right-to-Left motion
       gsap.to(tickerRef.current, {
         xPercent: -50,
         repeat: -1,
-        duration: 35, // Adjust this for speed (higher = slower)
+        duration: 35,
         ease: 'none',
       });
     });
@@ -69,9 +68,6 @@ export default function Brands() {
   return (
     <section className="bg-[#F8F4EE] my-5 border-b border-slate-300  pb-12 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 mb-12">
-        {/* <h2 className="text-5xl font-bold  tracking-[0.2em] ">
-          These brands got hyped.
-        </h2> */}
         <h2 className="text-3xl md:text-5xl font-bold">
           These brands <br /> got hyped.
         </h2>
@@ -80,7 +76,6 @@ export default function Brands() {
       {/* Infinite Grid Ticker Wrapper */}
       <div className="flex  select-none">
         <div ref={tickerRef} className="flex gap-5  will-change-transform ">
-          {/* We combine the array twice to ensure the loop is seamless */}
           {[...logos, ...logos].map((logo, index) => (
             <div
               key={index}
@@ -92,7 +87,6 @@ export default function Brands() {
               <img
                 src={logo.url}
                 alt={logo.name}
-                // max-h and max-w at 80% to keep them large but safe within the grid lines
                 className="w-full h-full  object-contain block"
               />
             </div>

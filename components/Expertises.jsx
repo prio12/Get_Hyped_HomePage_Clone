@@ -90,7 +90,6 @@ export default function ExpertiseSection() {
           pin: true,
           pinSpacing: isLast,
           invalidateOnRefresh: true,
-          // ADD THIS: Ensures smooth scroll knows where the pin starts/ends
           fastScrollEnd: true,
         },
       });
@@ -112,11 +111,11 @@ export default function ExpertiseSection() {
           className="expertise-card w-full h-screen flex items-center justify-center p-6 md:p-12"
           style={{
             backgroundColor: item.bgColor,
-            zIndex: index + 1, // Ensures correct stacking order
+            zIndex: index + 1,
           }}
         >
           <div className="relative w-full max-w-7xl h-full flex flex-col justify-between py-10 md:py-16">
-            {/* TOP SECTION */}
+            {/* Top Section */}
             <div className="flex justify-between items-start w-full">
               <div className="max-w-2xl">
                 <div
@@ -136,9 +135,9 @@ export default function ExpertiseSection() {
               </div>
             </div>
 
-            {/* CONTENT & VIDEO SECTION */}
+            {/* Content & Video Section */}
             <div className="flex flex-col md:flex-row justify-between items-end w-full gap-4 md:gap-8">
-              {/* VIDEO CONTAINER */}
+              {/* Video Container */}
               <div className="w-full md:w-[45%] flex justify-start md:justify-end order-2 md:order-2">
                 <div
                   className="relative overflow-hidden rounded-3xl shadow-xl border-[7px] transition-all duration-500 my-8 md:my-0 -rotate-2 md:rotate-3"
@@ -160,7 +159,7 @@ export default function ExpertiseSection() {
                 </div>
               </div>
 
-              {/* TEXT & CTA */}
+              {/* Text & CTA */}
               <div className="w-full md:w-1/2 pb-4 order-3 md:order-1">
                 <h4 className="text-xl md:text-2xl tracking-tighter font-semibold mb-3 leading-tight">
                   {item.subtitle}
