@@ -80,22 +80,24 @@ export default function ExpertiseSection() {
       const isLast = index === cards.length - 1;
 
       gsap.to(card, {
-        // Subtle scale down effect for cards underneath
         scale: isLast ? 1 : 0.95,
         opacity: isLast ? 1 : 0.9,
         scrollTrigger: {
           trigger: card,
           start: 'top top',
-          // The magic is here:
-          // Cards 1-3 stack (no spacing). Card 4 creates space for the next section.
           end: 'bottom top',
           scrub: true,
           pin: true,
           pinSpacing: isLast,
           invalidateOnRefresh: true,
+          // ADD THIS: Ensures smooth scroll knows where the pin starts/ends
+          fastScrollEnd: true,
         },
       });
     });
+
+    // Refresh ScrollTrigger once everything is rendered
+    ScrollTrigger.refresh();
 
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());

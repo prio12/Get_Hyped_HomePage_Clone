@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-page-custom-font */
-import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-
+// 1. Import your new SmoothScroll component
+import SmoothScroll from '@/components/SmoothScroll';
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -31,7 +31,12 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      {/* 2. Wrap children inside the SmoothScroll component */}
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <SmoothScroll>{children}</SmoothScroll>
+      </body>
     </html>
   );
 }
