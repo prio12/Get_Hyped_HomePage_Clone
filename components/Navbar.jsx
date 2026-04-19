@@ -107,7 +107,6 @@ export default function Navbar() {
       const tl = gsap.timeline();
 
       tl.set(menuRef.current, { visibility: 'visible' })
-        // Starts from -100% and "falls" into view with a bounce
         .fromTo(
           menuBgRef.current,
           { y: '-100%', borderRadius: '0 0 50% 50%' },

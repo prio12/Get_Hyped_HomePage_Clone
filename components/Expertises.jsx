@@ -104,11 +104,11 @@ export default function ExpertiseSection() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full overflow-hidden">
+    <div ref={containerRef} className="relative w-full   overflow-hidden">
       {expertiseData.map((item, index) => (
         <section
           key={item.id}
-          className="expertise-card w-full h-screen flex items-center justify-center p-6 md:p-12"
+          className="expertise-card w-full rounded-2xl  h-screen flex items-center justify-center p-6 md:p-12"
           style={{
             backgroundColor: item.bgColor,
             zIndex: index + 1,

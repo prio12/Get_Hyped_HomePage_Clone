@@ -92,7 +92,7 @@ export default function Hero() {
   return (
     <section
       ref={container}
-      className="relative  bg-[#F8F4EE] px-4 md:px-6  pt-32 md:pt-48 md:pb-20 pb-8 overflow-hidden select-none"
+      className="relative  bg-[#F8F4EE] px-4 md:px-6 mb-5  pt-32 md:pt-48 md:pb-20 pb-8 overflow-hidden select-none"
     >
       <div className="mx-auto max-w-325">
         <div className="mb-10 md:mb-16">

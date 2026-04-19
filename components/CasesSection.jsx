@@ -97,7 +97,7 @@ const ProjectCard = ({ project }) => {
         </h3>
 
         <div className="mb-1">
-          <span className="bg-white/20 backdrop-blur-md px-3 py-1 rounded-md text-[10px] font-bold tracking-widest uppercase">
+          <span className="bg-white/20 backdrop-blur-md px-3 py-1 rounded-md text-[10px] font-bold tracking-widest ">
             {project.brand}
           </span>
         </div>
@@ -134,12 +134,12 @@ export default function CasesSection() {
             <div className="mt-8">
               <a
                 href="#"
-                className="inline-flex items-center gap-3 p-1.5 pr-5 text-[#161616] text-sm border-2 border-[#161616] font-bold rounded-full transition-all hover:bg-[#161616] hover:text-white group"
+                className="inline-flex items-center gap-3 p-1.5 pr-5 text-[#161616] text-sm border-2 border-[#161616] font-bold rounded-lg transition-all   group"
               >
-                <div className="bg-[#161616] text-white p-1 rounded-full group-hover:bg-white group-hover:text-[#161616] transition-colors">
+                Bekijk al ons werk
+                <div className="bg-[#161616] text-white p-1 rounded-md  transition-colors">
                   <ArrowRight size={18} />
                 </div>
-                Bekijk al ons werk
               </a>
             </div>
           </div>
