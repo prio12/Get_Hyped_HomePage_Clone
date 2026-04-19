@@ -46,7 +46,7 @@ const logos = [
   },
   {
     name: 'ZCLV',
-    url: 'https://cdn.prod.website-files.com/68c1952f22281ee50d3620b5_zclv.svg',
+    url: 'https://cdn.prod.website-files.com/6848603da8e6ac95794b74a9/68c1952f22281ee50d3620b5_zclv.svg',
   },
 ];
 

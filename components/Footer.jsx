@@ -267,7 +267,7 @@ export default function SlopedFooter() {
             </div>
 
             <p className="text-[10px] font-bold text-slate-400 mt-10 tracking-[0.2em] uppercase">
-              © Design by Maksudur Rahman Prio
+              © Design by Dylan
             </p>
           </div>
         </div>
