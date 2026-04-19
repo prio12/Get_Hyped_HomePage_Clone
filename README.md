@@ -6,7 +6,7 @@ The core focus of this task was to replicate the premium "Agency Feel" of the or
 
 ## 🚀 Live Demo
 
-**[PASTE YOUR VERCEL/DEPLOYMENT LINK HERE]**
+https://get-hyped-home-page-clone.vercel.app/
 
 ---
 
@@ -62,7 +62,7 @@ Following the task requirements, the mobile version includes:
 
 1.  **Clone the repo:**
     ```bash
-    git clone [https://github.com/your-username/get-hyped-clone.git](https://github.com/your-username/get-hyped-clone.git)
+    git clone https://github.com/prio12/Get_Hyped_HomePage_Clone.git
     ```
 2.  **Install dependencies:**
     ```bash
