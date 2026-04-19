@@ -4,6 +4,7 @@ import About from '@/components/About';
 import Expertises from '@/components/Expertises';
 import CasesSection from '@/components/CasesSection';
 import Brands from '@/components/Brands';
+import CtaSection from '@/components/CtaSection';
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         <CasesSection />
       </div>
       <Brands />
+      <CtaSection />
     </main>
   );
 }
