@@ -92,9 +92,9 @@ export default function Hero() {
   return (
     <section
       ref={container}
-      className="relative  bg-[#F8F4EE] px-4 md:px-6 pt-32 md:pt-48 md:pb-20 pb-8 overflow-hidden select-none"
+      className="relative  bg-[#F8F4EE] px-4 md:px-6 mt-2 md:mt-0 lg:mt-0 pt-32 md:pt-48 md:pb-20 pb-8 overflow-hidden select-none"
     >
-      <div className="mx-auto max-w-[1300px]">
+      <div className="mx-auto max-w-325">
         {/* Headline - Reduced margin-bottom on mobile */}
         <div className="mb-10 md:mb-16">
           <h1 className="text-[clamp(2.5rem,7vw,5.33rem)] font-bold tracking-tighter leading-[0.95] text-[#1A1A1A] mb-4">
@@ -129,7 +129,7 @@ export default function Hero() {
                 bento-card-wrapper relative 
                 w-1/2 md:w-full 
                 max-w-[320px] aspect-[4.8/6.3] 
-                rounded-[2rem] md:rounded-[2.8rem] 
+                rounded-4xl md:rounded-[2.8rem] 
                 overflow-hidden shadow-2xl cursor-pointer
                 md:-mr-16 last:mr-0 
                 ${index > 1 ? 'hidden md:block' : 'block'}
@@ -148,7 +148,7 @@ export default function Hero() {
                     <div className="text-base md:text-xl font-bold text-[#161616] leading-tight">
                       {card.title}
                     </div>
-                    <div className="h-[1px] w-full bg-[#161616]" />
+                    <div className="h-px w-full bg-[#161616]" />
                     <div className="text-[10px] md:text-sm font-semibold text-[#161616]">
                       {card.desc}
                     </div>

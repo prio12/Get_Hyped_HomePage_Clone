@@ -37,7 +37,7 @@ export default function About() {
     });
   };
   return (
-    <div className="px-4 mt-12 max-w-[1280px] mx-auto">
+    <div className="px-4 mt-12 max-w-7xl mx-auto">
       {/* Desktop H2 */}
       <h2
         className="text-5xl hidden leading-[1.1] tracking-[-0.03em] font-bold text-[#161616] 
@@ -75,7 +75,7 @@ export default function About() {
                 loop
                 muted
                 playsInline
-                className="w-full rounded-2xl h-auto object-cover aspect-[4/5] shadow-2xl"
+                className="w-full rounded-2xl h-auto object-cover aspect-4/5 shadow-2xl"
                 style={{
                   transform: 'rotateX(15deg) rotateY(-10deg) rotateZ(2deg)',
                   transformStyle: 'preserve-3d',
@@ -126,7 +126,7 @@ export default function About() {
             {/* The Sliding Wrapper: Twice the height of the container */}
             <div
               ref={arrowWrapperRef}
-              className="absolute top-[-100%] left-0 w-full h-[200%] flex flex-col"
+              className="absolute -top-full left-0 w-full h-[200%] flex flex-col"
             >
               {/* Incoming Arrow (Top Half) */}
               <div className="h-1/2 w-full flex items-center justify-center">

@@ -85,9 +85,9 @@ export default function Brands() {
             <div
               key={index}
               className="flex items-center justify-center rounded-lg shrink-0 
-                         w-[132px] h-[132px] 
-                         md:w-[245px] md:h-[245px] 
-                         border-1 border-slate-600"
+                         w-33 h-33 
+                         md:w-61.25 md:h-61.25 
+                         border border-slate-600"
             >
               <img
                 src={logo.url}

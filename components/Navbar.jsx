@@ -2,7 +2,6 @@
 
 import { Flame, X } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import gsap from 'gsap';
 
 const LogoSVG = ({ className }) => (
@@ -14,6 +13,11 @@ const LogoSVG = ({ className }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
   >
+    {/* FIXED "G" PATH DATA */}
+    <path
+      d="M10.7552 38.1967V30.4719L6.41764 31.0106V52.7862L10.7552 52.6633V46.2774L8.09139 46.4255V40.2381L14.7799 39.6836V59.0933H10.7584V57.0676L10.0586 57.7386C9.15239 58.6082 7.93337 59.0933 6.66597 59.0933H5.9726C4.14728 59.0933 2.67026 57.6473 2.67026 55.8673V28.8021C2.67026 26.6851 4.25047 24.8799 6.39184 24.5522L10.968 23.8528C12.9707 23.5473 14.7831 25.0594 14.7831 27.0379V37.8281L10.7616 38.1935L10.7552 38.1967Z"
+      fill="#000000"
+    />
     <path
       d="M157 13.5888V50.7983C157 56.9857 151.866 62.0011 145.532 62.0011H5.64043C2.52513 62.0011 0 59.5344 0 56.4911V27.7499C0 25.0027 2.03495 22.6557 4.81163 22.2052L140.824 0.186982C149.296 -1.18345 157 5.19928 157 13.5857"
       fill="transparent"
@@ -60,35 +64,30 @@ const LogoSVG = ({ className }) => (
       d="M27.7829 21.2789V28.4052L31.7561 27.9106V59.0965H36.5548V27.3151L40.8182 26.7859V19.2847L27.7829 21.2789Z"
       fill="#000000"
     />
-    <path
-      d="M10.7552 38.1967V30.4719L6.41764 31.0106V52.7862L10.7552 52.6633V46.2774L8.09139 46.4255V40.2381L14.7799 39.6836V59.0933H10.7584V57.0676L10.0586 57.7386C9.15239 58.6082 7.93337 59.0933 6.66597 59.0933H5.9726C4.14728 59.0933 2.67026 57.6473 2.67026 55.8673V28.8021C2.67026 26.6851 4.25047 24.8799 6.39184 24.5522L10.968 23.8528C12.9707 23.5473 14.7831 25.0594 14.7831 27.0379V37.8281L10.7616 38.1935L10.7552 38.1967Z"
-      fill="#000000"
-    />
   </svg>
 );
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef(null);
+  const menuRef = useRef(null);
+  const menuBgRef = useRef(null);
+  const menuLinksRef = useRef([]);
+  const ctaRef = useRef(null);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      // LAW: Never hide the navbar if the mobile menu is open
       if (menuOpen) return;
-
       const currentScrollY = window.scrollY;
-
-      // Scrolling Down
       if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
         gsap.to(navRef.current, {
-          y: -120, // Slide up further to hide pink button shadow on mobile
+          y: -120,
           opacity: 0,
           duration: 0.4,
           ease: 'power2.inOut',
         });
       } else {
-        // Scrolling Up
         gsap.to(navRef.current, {
           y: 0,
           opacity: 1,
@@ -98,16 +97,58 @@ export default function Navbar() {
       }
       lastScrollY.current = currentScrollY;
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [menuOpen]); // Re-bind scroll listener when menuOpen state changes
+  }, [menuOpen]);
 
+  // FIX: FALLING & BOUNCING MOBILE MENU LOGIC
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = 'hidden';
+      const tl = gsap.timeline();
+
+      tl.set(menuRef.current, { visibility: 'visible' })
+        // Starts from -100% and "falls" into view with a bounce
+        .fromTo(
+          menuBgRef.current,
+          { y: '-100%', borderRadius: '0 0 50% 50%' },
+          { y: 0, borderRadius: '8px', duration: 0.5, ease: 'back.out(1.5)' }
+        )
+        .fromTo(
+          menuLinksRef.current,
+          { y: 20, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.08,
+            duration: 0.4,
+            ease: 'power2.out',
+          },
+          '-=0.3'
+        )
+        .fromTo(
+          ctaRef.current,
+          { scale: 0.8, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(2)' },
+          '-=0.2'
+        );
     } else {
       document.body.style.overflow = '';
+      if (menuRef.current) {
+        const tl = gsap.timeline({
+          onComplete: () => gsap.set(menuRef.current, { visibility: 'hidden' }),
+        });
+        // Sucks back up into the top
+        tl.to([ctaRef.current, menuLinksRef.current], {
+          opacity: 0,
+          y: -10,
+          duration: 0.2,
+        }).to(menuBgRef.current, {
+          y: '-110%',
+          duration: 0.6,
+          ease: 'power4.inOut',
+        });
+      }
     }
   }, [menuOpen]);
 
@@ -122,32 +163,27 @@ export default function Navbar() {
     <>
       <nav
         ref={navRef}
-        // Anchoring top and left ensures GSAP doesn't cause jumps on mobile browsers
-        className="fixed top-0 left-0 w-full z-[100] pt-4 px-6 transition-colors duration-300 pointer-events-none"
+        className="fixed top-0 left-0 w-full z-100 pt-4 px-6 pointer-events-none"
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between bg-transparent pointer-events-auto">
-          <a
-            href="#"
-            className="relative z-[110] flex items-center leading-none hover:opacity-80 transition-opacity"
-          >
+        <div className="max-w-7xl mx-auto flex items-center justify-between pointer-events-auto">
+          <a href="#" className="relative z-110 flex items-center">
             <LogoSVG className="h-10 md:h-12.5 w-auto" />
           </a>
 
-          {/* Desktop Links */}
           <ul className="hidden md:flex items-center bg-white/80 backdrop-blur-md rounded-full py-1.5 shadow-sm border border-black/5">
             {navLinks.map((link) => (
               <li key={link.label}>
                 <a
                   href={link.href}
-                  className="group relative flex items-center justify-center overflow-hidden rounded-full px-[1.2rem] py-[0.6rem] mx-1 text-xs font-bold tracking-[-0.02em] text-black"
+                  className="group relative flex items-center justify-center overflow-hidden rounded-full px-[1.2rem] py-[0.6rem] mx-1 text-xs font-bold text-black"
                 >
                   <span className="absolute inset-0 translate-y-full bg-[#FF0000] transition-transform duration-300 ease-out group-hover:translate-y-0"></span>
                   <span className="absolute inset-0 translate-y-full bg-black transition-transform duration-500 delay-40 group-hover:translate-y-0"></span>
-                  <span className="relative z-10 block h-[1.1em] overflow-hidden leading-none">
-                    <span className="block transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-y-full group-hover:text-white">
+                  <span className="relative z-10 block h-[1.1em] overflow-hidden">
+                    <span className="block transition-transform duration-300 group-hover:-translate-y-full group-hover:text-white">
                       {link.label}
                     </span>
-                    <span className="absolute top-0 left-0 block w-full translate-y-[150%] text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-y-[20%]">
+                    <span className="absolute top-0 left-0 block w-full translate-y-[150%] text-white transition-transform duration-500 group-hover:translate-y-[20%]">
                       {link.label}
                     </span>
                   </span>
@@ -156,16 +192,15 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* Desktop Button */}
           <div className="hidden md:block">
             <a
               href="#"
               className="group relative inline-flex items-center gap-2 px-4 py-2 text-[#1A1A1A] text-sm font-bold transition-transform duration-450 ease-bounce hover:rotate-[-8deg]"
             >
-              <span className="absolute inset-0 left-[0.15em] z-[-1] h-full bg-[#FCB8FA] rounded-[0.5em] w-[calc(100%-0.3em)] transition-all duration-450 ease-bounce group-hover:w-[calc(100%-0.8em)]" />
+              <span className="absolute inset-0 left-[0.15em] z-[-1] h-full bg-[#FCB8FA] rounded-[0.5em] w-[calc(100%-0.3em)] transition-all group-hover:w-[calc(100%-0.8em)]" />
               <span className="relative z-10 flex items-center gap-2">
                 Get Results
-                <div className="bg-white px-1 py-1 rounded-md transition-transform duration-450 group-hover:rotate-10 shadow-sm">
+                <div className="bg-white px-1 py-1 rounded-md transition-transform group-hover:rotate-10 shadow-sm">
                   <Flame
                     size={14}
                     strokeWidth={3}
@@ -178,9 +213,8 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Mobile Menu Button - Wrapped in ref container so it hides too */}
           <button
-            className={`relative z-[110] flex md:hidden flex-col gap-1.5 px-2.5 rounded-lg py-4 ${
+            className={`relative z-110 flex md:hidden flex-col gap-1.5 px-2.5 rounded-lg py-4 ${
               !menuOpen ? 'bg-[#FCB8FA]' : 'bg-[#FFFFFF]'
             } border border-black/10 shadow-lg`}
             onClick={() => setMenuOpen(!menuOpen)}
@@ -197,89 +231,51 @@ export default function Navbar() {
         </div>
       </nav>
 
-      <AnimatePresence mode="wait">
-        {menuOpen && (
-          <div className="fixed inset-0 z-[60]">
-            <motion.div
-              initial={{ y: '-100%' }}
-              animate={{ y: 0 }}
-              exit={{ y: '-110%', top: '-50px' }}
-              transition={{
-                type: 'spring',
-                mass: 1.2,
-                stiffness: 300,
-                damping: 20,
-                restDelta: 0.001,
-                exit: {
-                  type: 'tween',
-                  delay: 0.3,
-                  duration: 0.4,
-                  ease: [0.76, 0, 0.24, 1],
-                },
-              }}
-              className="absolute inset-0 bg-[#FCB8FA] m-2.5 rounded-lg origin-top shadow-2xl"
-            />
+      <div ref={menuRef} className="fixed inset-0 z-60 invisible">
+        {/* The Falling Background */}
+        <div
+          ref={menuBgRef}
+          className="absolute inset-0 bg-[#FCB8FA] m-2.5 rounded-lg origin-top shadow-2xl"
+        />
 
-            <div className="relative h-full flex flex-col items-center justify-center px-6">
-              <ul className="flex flex-col items-center gap-2 mt-12">
-                {navLinks.map((link, index) => (
-                  <motion.li
-                    key={link.label}
-                    initial={{ y: 40, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{
-                      y: -20,
-                      opacity: 0,
-                      transition: { duration: 0.2, delay: index * 0.05 },
-                    }}
-                    transition={{
-                      delay: 0.4 + index * 0.1,
-                      type: 'spring',
-                      stiffness: 260,
-                      damping: 20,
-                    }}
-                  >
-                    <a
-                      href={link.href}
-                      onClick={() => setMenuOpen(false)}
-                      className="text-xl font-black text-[#1A1A1A] tracking-tighter pt-5 hover:italic hover:opacity-70 transition-all"
-                    >
-                      <div className="py-3 px-5 bg-[#FFFFFF] font-bold text-2xl rounded-xl">
-                        {link.label}
-                      </div>
-                    </a>
-                  </motion.li>
-                ))}
-              </ul>
-
-              <motion.div
-                initial={{ y: 40, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ opacity: 0, transition: { duration: 0.2 } }}
-                transition={{ delay: 0.8 }}
-                className="pt-32"
+        <div className="relative h-full flex flex-col items-center justify-center px-6">
+          <ul className="flex flex-col items-center gap-2 mt-12">
+            {navLinks.map((link, index) => (
+              <li
+                key={link.label}
+                ref={(el) => (menuLinksRef.current[index] = el)}
               >
                 <a
-                  href="#"
+                  href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="inline-flex items-center gap-3 px-4 py-3 bg-[#161616] text-[#FFFFFF] text-xl font-bold rounded-2xl"
+                  className="block py-3 px-8 bg-white font-bold text-2xl rounded-2xl text-[#1A1A1A] tracking-tighter hover:scale-105 transition-transform"
                 >
-                  Get Results
-                  <div className="bg-[#FCE7F3] p-1.5 rounded-lg">
-                    <Flame
-                      size={22}
-                      strokeWidth={3}
-                      className="text-[#FF4D00]"
-                      fill="#FF4D00"
-                      fillOpacity={0.45}
-                    />
-                  </div>
+                  {link.label}
                 </a>
-              </motion.div>
-            </div>
+              </li>
+            ))}
+          </ul>
+
+          <div ref={ctaRef} className="pt-24 opacity-0">
+            <a
+              href="#"
+              onClick={() => setMenuOpen(false)}
+              className="inline-flex items-center gap-3 px-6 py-4 bg-[#161616] text-[#FFFFFF] text-xl font-bold rounded-2xl shadow-xl active:scale-95 transition-transform"
+            >
+              Get Results
+              <div className="bg-[#FCE7F3] p-1.5 rounded-lg">
+                <Flame
+                  size={22}
+                  strokeWidth={3}
+                  className="text-[#FF4D00]"
+                  fill="#FF4D00"
+                  fillOpacity={0.45}
+                />
+              </div>
+            </a>
           </div>
-        )}
-      </AnimatePresence>
+        </div>
+      </div>
     </>
   );
 }

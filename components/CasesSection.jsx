@@ -87,7 +87,7 @@ const ProjectCard = ({ project }) => {
 
       {/* THE SLOPE OVERLAY */}
       <div
-        className="absolute bottom-4 left-4 right-4 p-6 pt-12 text-white flex flex-col justify-end rounded-[2rem] overflow-hidden"
+        className="absolute bottom-4 left-4 right-4 p-6 pt-12 text-white flex flex-col justify-end rounded-4xl overflow-hidden"
         style={{
           backgroundColor: project.color,
           clipPath: 'polygon(0 20%, 100% 0, 100% 100%, 0 100%)',

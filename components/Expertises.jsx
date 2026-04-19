@@ -141,13 +141,13 @@ export default function ExpertiseSection() {
               {/* VIDEO CONTAINER */}
               <div className="w-full md:w-[45%] flex justify-start md:justify-end order-2 md:order-2">
                 <div
-                  className="relative overflow-hidden rounded-3xl shadow-xl border-[7px] transition-all duration-500 my-8 md:my-0 -rotate-[2deg] md:rotate-[3deg]"
+                  className="relative overflow-hidden rounded-3xl shadow-xl border-[7px] transition-all duration-500 my-8 md:my-0 -rotate-2 md:rotate-3"
                   style={{
                     borderColor: item.btnBgColor,
                     width: 'clamp(50%, 50%, 280px)',
                   }}
                 >
-                  <div className="w-full h-[210px] md:h-[320px] overflow-hidden">
+                  <div className="w-full h-52.5 md:h-80 overflow-hidden">
                     <video
                       src={item.video}
                       autoPlay
@@ -165,7 +165,7 @@ export default function ExpertiseSection() {
                 <h4 className="text-xl md:text-2xl tracking-tighter font-semibold mb-3 leading-tight">
                   {item.subtitle}
                 </h4>
-                <p className="text-sm md:text-lg opacity-80 mb-6 max-w-[440px] font-semibold leading-relaxed">
+                <p className="text-sm md:text-lg opacity-80 mb-6 max-w-110 font-semibold leading-relaxed">
                   {item.desc}
                 </p>
                 <a

@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Get Hyped - Frontend Recreation Task
 
-## Getting Started
+This repository contains a high-fidelity recreation of the [gethyped.nl](https://www.gethyped.nl/) homepage. This project was developed as a technical assessment for the **Junior MERN Developer** position at **DeveloperLook**.
 
-First, run the development server:
+The core focus of this task was to replicate the premium "Agency Feel" of the original site, specifically focusing on complex GSAP animations, smooth scroll behaviors, and pixel-perfect responsiveness.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Live Demo
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**[PASTE YOUR VERCEL/DEPLOYMENT LINK HERE]**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Technical Stack
 
-## Learn More
+- **Framework:** Next.js 15 (App Router)
+- **Styling:** Tailwind CSS
+- **Animations:** GSAP (GreenSock Animation Platform)
+- **Scroll Engine:** Lenis Smooth Scroll
+- **Icons:** Lucide React & React Icons
+- **Deployment:** Vercel
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ⚡ Key Challenges & Solutions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 1. The "Stacked" Expertise Section
 
-## Deploy on Vercel
+The original site uses a pinning effect where cards stack on top of each other. I implemented this using **GSAP ScrollTrigger**.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **The Logic:** Each card is pinned to the top of the viewport while the subsequent card slides over it.
+- **Optimization:** I integrated **Lenis** with a custom GSAP ticker to ensure that the pinning calculations remain perfectly synced with the smooth scroll position, preventing any "jitter" or layout shifts.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 2. Interactive CTA (Image Spawning)
+
+In the "Let's Get Hyped" section, I recreated the mouse-tracking logic where brand assets spawn at the cursor's location.
+
+- **Human-Centric UX:** I added distance-based logic (Hypot) to ensure images only spawn when the mouse moves a certain distance, preventing the screen from becoming overcrowded and maintaining performance.
+
+### 3. Responsive Slopes & Clip-Paths
+
+A signature design element of the site is its sloped containers.
+
+- Instead of using simple images, I utilized **CSS Clip-Paths** and **Polygon mapping** to ensure the slopes remain sharp on Retina displays and adapt fluidly to mobile screen widths.
+
+### 4. Performance & Video Handling
+
+Since the site is heavy on video content, I used the **Intersection Observer API** to ensure videos only play when they are at least 50% visible in the viewport, significantly reducing CPU/GPU overhead.
+
+---
+
+## 📱 Mobile Behavior
+
+Following the task requirements, the mobile version includes:
+
+- A fully custom-built **Hamburger Menu** with the specific overlay transitions seen on the live site.
+- Adaptive layouts for the "Cases" section, including the specific rotation offsets used on smaller screens.
+- Touch-optimized scrolling.
+
+---
+
+## 🛠️ Local Development
+
+1.  **Clone the repo:**
+    ```bash
+    git clone [https://github.com/your-username/get-hyped-clone.git](https://github.com/your-username/get-hyped-clone.git)
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Run the dev server:**
+    ```bash
+    npm run dev
+    ```
+
+---
+
+**Developed by Maksudur Rahman Prio** _Focused on building production-ready, interactive web applications._

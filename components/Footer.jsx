@@ -2,8 +2,15 @@
 
 import { Flame } from 'lucide-react';
 import { FaLinkedin, FaInstagram, FaYoutube, FaTiktok } from 'react-icons/fa';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// The LogoSVG you provided
+// Register GSAP plugin
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 const LogoSVG = ({ className }) => (
   <svg
     width="157"
@@ -67,6 +74,9 @@ const LogoSVG = ({ className }) => (
 );
 
 export default function SlopedFooter() {
+  const footerRef = useRef(null);
+  const socialIconsRef = useRef([]);
+
   const navLinks = [
     { label: 'Expertises', href: '#' },
     { label: 'Work', href: '#' },
@@ -74,20 +84,49 @@ export default function SlopedFooter() {
     { label: 'Contact', href: '#' },
   ];
 
+  // GSAP Entrance Animation
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from('.footer-content', {
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: 'top 80%',
+        },
+      });
+
+      // Simple stagger for social icons
+      gsap.from(socialIconsRef.current, {
+        scale: 0.5,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'back.out(1.7)',
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: 'top 85%',
+        },
+      });
+    }, footerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <footer className="px-2 md:px-5 lg:px-5">
+    <footer ref={footerRef} className="px-2 md:px-5 lg:px-5">
+      {/* Desktop Section */}
       <div
-        // 1. Hidden on small screens, flex on medium+
-        className="hidden md:flex w-full bg-[#eedeed] overflow-hidden min-h-[400px] relative px-5 flex-col"
+        className="hidden md:flex w-full bg-[#eedeed] overflow-hidden min-h-100 relative px-5 flex-col footer-content"
         style={{ clipPath: 'polygon(0 220px, 100% 0, 100% 100%, 0 100%)' }}
       >
         <div className="grid grid-cols-12 gap-6 items-center">
-          {/* Logo Section */}
           <div className="col-span-6 pt-62">
             <LogoSVG className="h-24 w-auto" />
           </div>
 
-          {/* Navigation & Socials */}
           <div className="col-span-3 flex flex-col justify-center items-center gap-6 pt-24">
             <ul className="hidden lg:flex items-center bg-white/80 backdrop-blur-md rounded-full py-1.5 shadow-sm border border-black/5">
               {navLinks.map((link) => (
@@ -110,25 +149,27 @@ export default function SlopedFooter() {
                 </li>
               ))}
             </ul>
-
             <ul className="flex gap-3 items-center text-xs font-bold uppercase tracking-tighter">
               <p>Follow us</p>
+
               <div className="bg-white h-8 w-8 rounded-full flex items-center justify-center">
                 <FaLinkedin size={16} />
               </div>
+
               <div className="bg-white h-8 w-8 rounded-full flex items-center justify-center">
                 <FaTiktok size={16} />
               </div>
+
               <div className="bg-white h-8 w-8 rounded-full flex items-center justify-center">
                 <FaInstagram size={16} />
               </div>
+
               <div className="bg-white h-8 w-8 rounded-full flex items-center justify-center">
                 <FaYoutube size={16} />
               </div>
             </ul>
           </div>
 
-          {/* 2. Contact Section with left spacing (pl-12) */}
           <div className="col-span-3 flex flex-col justify-center gap-6 pt-24 pl-12 pr-6">
             <div>
               <h3 className="font-bold text-sm">Contact</h3>
@@ -144,23 +185,21 @@ export default function SlopedFooter() {
         </div>
       </div>
 
-      {/* Mobile Section - Right-to-Left Slope */}
+      {/* Mobile Section */}
       <div
-        className="bg-[#eedeed] block md:hidden lg:hidden w-full rounded-lg"
+        className="bg-[#eedeed] block md:hidden lg:hidden w-full rounded-lg footer-content"
         style={{ clipPath: 'polygon(0 60px, 100% 0, 100% 100%, 0 100%)' }}
       >
         <div className="flex flex-col items-center w-full mt-12">
-          {/* 1st: LogoSVG (Full Width) */}
           <div className="w-full mb-8">
             <LogoSVG className="w-full h-auto" />
           </div>
 
-          {/* 2nd: Get Results Button */}
           <a
             href="#"
-            className="group relative inline-flex items-center gap-2 px-6 py-3 text-white mb-6 font-bold transition-transform duration-450 ease-bounce hover:rotate-[-8deg]"
+            className="group relative inline-flex items-center gap-2 px-6 py-3 text-white mb-6 font-bold transition-transform duration-450 ease-bounce hover:rotate-[-8deg] active:scale-95"
           >
-            <span className="absolute inset-0 left-[0.15em] z-[1] h-full bg-[#fa5424] rounded-[0.5em] w-[calc(100%-0.3em)] transition-all duration-450 ease-bounce group-hover:w-[calc(100%-0.8em)]" />
+            <span className="absolute inset-0 left-[0.15em] z-1 h-full bg-[#fa5424] rounded-[0.5em] w-[calc(100%-0.3em)] transition-all duration-450 ease-bounce group-hover:w-[calc(100%-0.8em)]" />
             <span className="relative z-10 flex items-center gap-2">
               Get Hyped! Neem Contact Op
               <div className="bg-white px-1.5 py-1.5 rounded-md shadow-sm">
@@ -175,16 +214,15 @@ export default function SlopedFooter() {
             </span>
           </a>
 
-          {/* 3rd: Navigation Links (Pill Style) */}
           <ul className="flex flex-wrap justify-center items-center gap-3 mb-8">
             {navLinks.map((link) => (
               <li
                 key={link.label}
-                className="bg-white rounded-lg shadow-sm border border-black/5"
+                className="bg-white rounded-lg shadow-sm border border-black/5 overflow-hidden"
               >
                 <a
                   href={link.href}
-                  className="group relative flex items-center justify-center overflow-hidden rounded-lg px-4 py-2 text-xs font-bold text-black"
+                  className="group relative flex items-center justify-center rounded-lg px-4 py-2 text-xs font-bold text-black"
                 >
                   <span className="absolute inset-0 translate-y-full bg-[#FF0000] transition-transform duration-300 ease-out group-hover:translate-y-0"></span>
                   <span className="absolute inset-0 translate-y-full bg-black transition-transform duration-500 delay-40 group-hover:translate-y-0"></span>
@@ -202,20 +240,18 @@ export default function SlopedFooter() {
             ))}
           </ul>
 
-          {/* 4th: Socials */}
           <div className="flex gap-4 mb-10">
             {[FaLinkedin, FaTiktok, FaInstagram, FaYoutube].map((Icon, i) => (
               <div
                 key={i}
-                className="bg-white h-10 w-10 rounded-full shadow-sm flex items-center justify-center text-black active:scale-90 transition-transform"
+                className="bg-white h-10 w-10 rounded-full  flex items-center justify-center text-black active:scale-90 transition-transform cursor-pointer"
               >
                 <Icon size={18} />
               </div>
             ))}
           </div>
 
-          {/* 5th: Footer Info */}
-          <div className="text-center space-y-4">
+          <div className="text-center space-y-4 pb-10">
             <div className="space-y-1">
               <p className="font-bold text-base text-[#1A1A1A]">
                 info@gethyped.nl
